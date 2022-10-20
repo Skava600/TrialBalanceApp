@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TrialBalanceWebApp.Models
+namespace TrialBalanceWebApp.Entities
 {
     public class Account : BaseEntity
     {

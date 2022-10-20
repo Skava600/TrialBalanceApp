@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TrialBalanceWebApp.Models.Base;
 
-namespace TrialBalanceWebApp.Models
+namespace TrialBalanceWebApp.Entities
 {
     public class Revenue : BaseEntity
     {

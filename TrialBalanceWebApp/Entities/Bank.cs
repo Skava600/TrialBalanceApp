@@ -1,6 +1,6 @@
 ﻿using TrialBalanceWebApp.Models.Base;
 
-namespace TrialBalanceWebApp.Models
+namespace TrialBalanceWebApp.Entities
 {
     public class Bank : BaseEntity
     {

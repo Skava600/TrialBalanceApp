@@ -1,8 +1,8 @@
 ﻿using IronXL;
 using System.Linq;
-using TrialBalanceWebApp.Models;
 using TrialBalanceWebApp.Helpers;
 using System.Web;
+using TrialBalanceWebApp.Entities;
 
 namespace TrialBalanceWebApp.Data
 {

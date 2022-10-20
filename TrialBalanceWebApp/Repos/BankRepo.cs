@@ -1,13 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Npgsql;
+using NpgsqlTypes;
+using System.Data;
 using TrialBalanceWebApp.Data;
-using TrialBalanceWebApp.Models;
+using TrialBalanceWebApp.Entities;
 using TrialBalanceWebApp.Repos.Base;
+using TrialBalanceWebApp.Repos.Interfaces;
 using TrialBalanceWebApp.Services.Logging.Interfaces;
 
 namespace TrialBalanceWebApp.Repos
 {
-    public class BankRepo : BaseRepo<Bank>
+    public class BankRepo : BaseRepo<Bank>, IBankRepo
     {
         public BankRepo(ApplicationDbContext context) : base(context)
         {
@@ -36,5 +39,7 @@ namespace TrialBalanceWebApp.Repos
                .ThenInclude(ac => ac.Accounts)
                .ThenInclude(ac => ac.OpeningBalance)
                .OrderBy(b => b.Name);
+
+       
     }
 }

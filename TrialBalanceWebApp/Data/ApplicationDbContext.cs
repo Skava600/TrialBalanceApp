@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using TrialBalanceWebApp.Models;
+using TrialBalanceWebApp.Entities;
 using TrialBalanceWebApp.Services.DataServices.Dal.Exceptions;
 using TrialBalanceWebApp.Services.Logging.Interfaces;
 

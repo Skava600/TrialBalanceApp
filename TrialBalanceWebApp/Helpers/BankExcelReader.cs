@@ -1,5 +1,5 @@
 ﻿using IronXL;
-using TrialBalanceWebApp.Models;
+using TrialBalanceWebApp.Entities;
 
 namespace TrialBalanceWebApp.Helpers
 {

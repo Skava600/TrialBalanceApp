@@ -1,33 +1,31 @@
-﻿@model Bank
+﻿@model BankViewModel
+@using TrialBalanceWebApp.Models;
 
 @{
     ViewData["Title"] = "Details";
 
-    void RenderGroupRow(string num, 
-        double incActive, double incPassive,
-        double revenueDebit, double revenueCredit, 
-        double outActive, double outPassive)
+    void RenderGroupRow(AccountModel account)
     {
         <td>
-            @num
+            @account.BankAccount
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", incActive));
+            @string.Format(String.Format("{0:N2}", account.OpeningActive))
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", incPassive));
+            @string.Format(String.Format("{0:N2}", account.OpeningPassive))
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", revenueDebit));
+            @string.Format(String.Format("{0:N2}", account.RevenueDebit))
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", revenueCredit));
+            @string.Format(String.Format("{0:N2}", account.RevenueCredit))
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", outActive));
+            @string.Format(String.Format("{0:N2}", account.OutgoingActive))
         </td>
         <td>
-            @string.Format(String.Format("{0:N2}", outPassive));
+            @string.Format(String.Format("{0:N2}", account.OutgoingPassive))
         </td>
     }
 }
@@ -38,80 +36,61 @@
 </div>
 
 <h1>Details of Bank @Model.Name</h1>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th rowspan="2">
-                        Б/СЧ
-                    </th>
-                    <th colspan="2">
-                        Входящее сальдо
-                    </th>
-                    <th colspan="2">
-                        Обороты
-                    </th>
-                    <th colspan="2">
-                        Исходящее сальдо
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        Актив
-                    </th>
-                    <th>
-                        Пассив
-                    </th>
-                    <th>
-                        Дебет
-                    </th>
-                    <th>
-                        Кредит
-                    </th>
-                    <th>
-                        Актив
-                    </th>
-                    <th>
-                        Пассив
-                    </th>
-                </tr>
-             </thead>
-             <tbody>
-            @foreach(var accountClass in Model.AccountClasses)
-            {   
-                <tr>
-                    <td colspan="7">
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th rowspan="2">
+                Б/СЧ
+            </th>
+            <th colspan="2">
+                Входящее сальдо
+            </th>
+            <th colspan="2">
+                Обороты
+            </th>
+            <th colspan="2">
+                Исходящее сальдо
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Актив
+            </th>
+            <th>
+                Пассив
+            </th>
+            <th>
+                Дебет
+            </th>
+            <th>
+                Кредит
+            </th>
+            <th>
+                Актив
+            </th>
+            <th>
+                Пассив
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var accountClass in Model.Classes)
+        {
+            <tr>
+                <td colspan="7" style="font-weight: bold;">
                     @Html.DisplayFor(accountClassItem => accountClass.Name)
-                    </td>
-                </tr>
-                @foreach (var accountGroups in accountClass.Accounts.GroupBy(a => a.BankAccount / 100))
+                </td>
+            </tr>
+            @foreach (var account in accountClass.Accounts)
 
-                {
-                   foreach(var account in accountGroups)
-                        {
-                            <tr>
-                            @{RenderGroupRow(account.BankAccount.ToString(),
-                                account.OpeningBalance.Active, account.OpeningBalance.Passive,
-                                account.Revenue.Debit, account.Revenue.Credit,
-                                account.OutgoingBalance.Active, account.OutgoingBalance.Active);
-                            }
-                            </tr>
-                    }
-
-                    <tr class="group-row">
-                         @{RenderGroupRow(accountGroups.Key.ToString(),
-                                accountGroups.Sum(a => a.OpeningBalance.Active), accountGroups.Sum(a => a.OpeningBalance.Passive),
-                                accountGroups.Sum(a => a.Revenue.Debit), accountGroups.Sum(a => a.Revenue.Credit),
-                                accountGroups.Sum(a => a.OutgoingBalance.Active), accountGroups.Sum(a => a.OutgoingBalance.Active));
-                                }
-                    </tr>
-                }
-                <tr class="group-row">
-                 @{RenderGroupRow("По классу",
-                            accountClass.Accounts.Sum(a => a.OpeningBalance.Active), accountClass.Accounts.Sum(a => a.OpeningBalance.Passive),
-                            accountClass.Accounts.Sum(a => a.Revenue.Debit), accountClass.Accounts.Sum(a => a.Revenue.Credit),
-                            accountClass.Accounts.Sum(a => a.OutgoingBalance.Active), accountClass.Accounts.Sum(a => a.OutgoingBalance.Active));
-                            }
-                </tr>
+            {
+                <tr class= @(account.IsBold ? "group-row": "")>
+                    @{RenderGroupRow(account);}
+                  </tr>
             }
-            </tbody>
+        }
+        @{
+            RenderGroupRow(Model.TotalAccount);
+        }
+    </tbody>
         </table>
