@@ -30,7 +30,7 @@ After specifying connectionstring to configure database use commands:
  5) Revenue
  6) Additional table for logging - Serilog
  
-## Used additional nugget packages
+## Used nuGet packages
  - Npgsql.EntityFrameworkCore.PostgreSQL
  - Npgsql.EntityFrameworkCore.PostgreSQL.Design
  - Serilog.Enrichers.Environment
