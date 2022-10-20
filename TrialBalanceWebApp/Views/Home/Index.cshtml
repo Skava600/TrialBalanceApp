@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<html>
+    <head>
+        <meta name="viewimport" content="width-device-width"/>
+        <title>Index</title>
+    </head>
+    <body>
+        @using (Html.BeginForm("Import", "Home", FormMethod.Post, new {enctype = "multipart/form-data", id = "frm-excel"}))
+    {
+        <div style="margin: 15px">
+            Import Bank's trial balance information:
+            <input type="file" name="excelFile" id="excelFile" style="margin:15px"/>
+            <div style="padding: 15px">
+                <input type="submit" value="Load" class="btn btn-primary"/>
+            </div>
+        </div>
+    }
+</body>
+</html>
+

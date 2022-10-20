@@ -1,0 +1,23 @@
+﻿using TrialBalanceWebApp.Models;
+using TrialBalanceWebApp.Repos;
+using TrialBalanceWebApp.Repos.Base;
+using TrialBalanceWebApp.Services.DataServices.Dal;
+using TrialBalanceWebApp.Services.DataServices.Interfaces;
+
+namespace TrialBalanceWebApp.Services.DataServices
+{
+    public static class DataServiceConfiguration
+    {
+        public static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped<IBaseRepo<Bank>, BankRepo>();
+            return services;
+        }
+        public static IServiceCollection AddDataServices(
+            this IServiceCollection services)
+        {
+                services.AddScoped<IDataServiceBase<Bank>, BankDalDataService>();
+            return services;
+        }
+    }
+}
