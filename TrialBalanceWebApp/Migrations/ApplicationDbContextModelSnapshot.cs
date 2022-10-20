@@ -21,7 +21,7 @@ namespace TrialBalanceWebApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Account", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,7 +54,7 @@ namespace TrialBalanceWebApp.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.AccountClass", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.AccountClass", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,7 +76,7 @@ namespace TrialBalanceWebApp.Migrations
                     b.ToTable("AccountClasses");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Balance", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Balance", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +95,7 @@ namespace TrialBalanceWebApp.Migrations
                     b.ToTable("Balances");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Bank", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Bank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,7 +112,7 @@ namespace TrialBalanceWebApp.Migrations
                     b.ToTable("Banks");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Revenue", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Revenue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,23 +131,23 @@ namespace TrialBalanceWebApp.Migrations
                     b.ToTable("Revenues");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Account", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Account", b =>
                 {
-                    b.HasOne("TrialBalanceWebApp.Models.AccountClass", null)
+                    b.HasOne("TrialBalanceWebApp.Entities.AccountClass", null)
                         .WithMany("Accounts")
                         .HasForeignKey("ClassId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrialBalanceWebApp.Models.Balance", "OpeningBalance")
+                    b.HasOne("TrialBalanceWebApp.Entities.Balance", "OpeningBalance")
                         .WithOne()
-                        .HasForeignKey("TrialBalanceWebApp.Models.Account", "OpeningBalanceId")
+                        .HasForeignKey("TrialBalanceWebApp.Entities.Account", "OpeningBalanceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TrialBalanceWebApp.Models.Revenue", "Revenue")
+                    b.HasOne("TrialBalanceWebApp.Entities.Revenue", "Revenue")
                         .WithOne()
-                        .HasForeignKey("TrialBalanceWebApp.Models.Account", "RevenueId")
+                        .HasForeignKey("TrialBalanceWebApp.Entities.Account", "RevenueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -156,21 +156,21 @@ namespace TrialBalanceWebApp.Migrations
                     b.Navigation("Revenue");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.AccountClass", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.AccountClass", b =>
                 {
-                    b.HasOne("TrialBalanceWebApp.Models.Bank", null)
+                    b.HasOne("TrialBalanceWebApp.Entities.Bank", null)
                         .WithMany("AccountClasses")
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.AccountClass", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.AccountClass", b =>
                 {
                     b.Navigation("Accounts");
                 });
 
-            modelBuilder.Entity("TrialBalanceWebApp.Models.Bank", b =>
+            modelBuilder.Entity("TrialBalanceWebApp.Entities.Bank", b =>
                 {
                     b.Navigation("AccountClasses");
                 });

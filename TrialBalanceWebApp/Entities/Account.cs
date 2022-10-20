@@ -23,8 +23,8 @@ namespace TrialBalanceWebApp.Entities
         {
             get => new Balance()
             {
-                Active = OpeningBalance.Active == 0 ? 0 : Math.Round(OpeningBalance.Active + Revenue.Debit - Revenue.Credit, 2),
-                Passive = OpeningBalance.Passive == 0 ? 0 : Math.Round(OpeningBalance.Passive - (Revenue.Debit - Revenue.Credit), 2),
+                Active = OpeningBalance.Active == 0 ? 0 : OpeningBalance.Active + Revenue.Debit - Revenue.Credit,
+                Passive = OpeningBalance.Passive == 0 ? 0 : OpeningBalance.Passive - (Revenue.Debit - Revenue.Credit)
             };
         }
     }

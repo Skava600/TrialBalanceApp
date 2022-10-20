@@ -62,14 +62,14 @@ namespace TrialBalanceWebApp.Controllers
                     accountsInClass.Add(new AccountModel(group.Key.ToString(),
                                 group.Sum(a => a.OpeningBalance.Active), group.Sum(a => a.OpeningBalance.Passive),
                                 group.Sum(a => a.Revenue.Debit), group.Sum(a => a.Revenue.Credit),
-                                group.Sum(a => a.OutgoingBalance.Active), group.Sum(a => a.OutgoingBalance.Active), true));
+                                group.Sum(a => a.OutgoingBalance.Active), group.Sum(a => a.OutgoingBalance.Passive), true));
                 }
 
                 // Добавление аккаунта по классу
                 accountsInClass.Add(new AccountModel("По классу",
                             accountClass.Accounts.Sum(a => a.OpeningBalance.Active), accountClass.Accounts.Sum(a => a.OpeningBalance.Passive),
                             accountClass.Accounts.Sum(a => a.Revenue.Debit), accountClass.Accounts.Sum(a => a.Revenue.Credit),
-                            accountClass.Accounts.Sum(a => a.OutgoingBalance.Active), accountClass.Accounts.Sum(a => a.OutgoingBalance.Active), true));
+                            accountClass.Accounts.Sum(a => a.OutgoingBalance.Active), accountClass.Accounts.Sum(a => a.OutgoingBalance.Passive), true));
 
                 return new ClassModel()
                 {

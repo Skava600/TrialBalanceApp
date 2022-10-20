@@ -90,7 +90,9 @@
             }
         }
         @{
-            RenderGroupRow(Model.TotalAccount);
+             <tr class= @(Model.TotalAccount.IsBold ? "group-row": "")>
+                    @{RenderGroupRow(Model.TotalAccount);}
+             </tr>         
         }
     </tbody>
         </table>

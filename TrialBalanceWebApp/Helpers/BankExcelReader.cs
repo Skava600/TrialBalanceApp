@@ -27,13 +27,13 @@ namespace TrialBalanceWebApp.Helpers
 
                     Balance openingBalance = new Balance()
                     {
-                        Active = (double)range[1].Value,
-                        Passive = (double)range[2].Value,
+                        Active = (double)range[1].DecimalValue,
+                        Passive = (double)range[2].DecimalValue,
                     };
                     Revenue revenue = new Revenue()
                     {
-                        Debit = (double)range[3].Value,
-                        Credit = (double)range[4].Value,
+                        Debit = (double)range[3].DecimalValue,
+                        Credit = (double)range[4].DecimalValue,
                     };
 
                     currentAccount = new Account()
