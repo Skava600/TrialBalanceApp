@@ -10,20 +10,6 @@ namespace TrialBalanceWebApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Balances",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Active = table.Column<double>(type: "double precision", nullable: false),
-                    Passive = table.Column<double>(type: "double precision", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Balances", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Banks",
                 columns: table => new
                 {
@@ -34,20 +20,6 @@ namespace TrialBalanceWebApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Revenues",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Debit = table.Column<double>(type: "double precision", nullable: false),
-                    Credit = table.Column<double>(type: "double precision", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Revenues", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,9 +49,7 @@ namespace TrialBalanceWebApp.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     BankAccount = table.Column<int>(type: "integer", nullable: false),
-                    ClassId = table.Column<int>(type: "integer", nullable: false),
-                    OpeningBalanceId = table.Column<int>(type: "integer", nullable: false),
-                    RevenueId = table.Column<int>(type: "integer", nullable: false)
+                    ClassId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,16 +60,46 @@ namespace TrialBalanceWebApp.Migrations
                         principalTable: "AccountClasses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Balances",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AccountId = table.Column<int>(type: "integer", nullable: false),
+                    Active = table.Column<double>(type: "double precision", nullable: false),
+                    Passive = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Balances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_Balances_OpeningBalanceId",
-                        column: x => x.OpeningBalanceId,
-                        principalTable: "Balances",
+                        name: "FK_Balances_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Revenues",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AccountId = table.Column<int>(type: "integer", nullable: false),
+                    Debit = table.Column<double>(type: "double precision", nullable: false),
+                    Credit = table.Column<double>(type: "double precision", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Revenues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_Revenues_RevenueId",
-                        column: x => x.RevenueId,
-                        principalTable: "Revenues",
+                        name: "FK_Revenues_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,31 +115,31 @@ namespace TrialBalanceWebApp.Migrations
                 column: "ClassId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_OpeningBalanceId",
-                table: "Accounts",
-                column: "OpeningBalanceId",
+                name: "IX_Balances_AccountId",
+                table: "Balances",
+                column: "AccountId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_RevenueId",
-                table: "Accounts",
-                column: "RevenueId",
+                name: "IX_Revenues_AccountId",
+                table: "Revenues",
+                column: "AccountId",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accounts");
-
-            migrationBuilder.DropTable(
-                name: "AccountClasses");
-
-            migrationBuilder.DropTable(
                 name: "Balances");
 
             migrationBuilder.DropTable(
                 name: "Revenues");
+
+            migrationBuilder.DropTable(
+                name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "AccountClasses");
 
             migrationBuilder.DropTable(
                 name: "Banks");

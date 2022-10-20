@@ -10,12 +10,8 @@ namespace TrialBalanceWebApp.Entities
 
         public int ClassId { get; set; }
 
-        public int OpeningBalanceId { get; set; }
-        [ForeignKey(nameof(OpeningBalanceId))]
         public Balance OpeningBalance { get; set; }
 
-        public int RevenueId { get; set; }
-        [ForeignKey(nameof(RevenueId))]
         public Revenue Revenue { get; set; }
 
         [NotMapped]

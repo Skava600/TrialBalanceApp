@@ -65,15 +65,14 @@ namespace TrialBalanceWebApp.Data
 
             modelBuilder.Entity<Account>()
                 .HasOne<Balance>(a => a.OpeningBalance)
-                .WithOne()
-                .HasForeignKey<Account>(t => t.OpeningBalanceId)
+                .WithOne(b => b.Account)
+                .HasForeignKey<Balance>(b => b.AccountId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Revenue>()
-                .HasOne<Account>()
-                .WithOne(t => t.Revenue)
-                .OnDelete(DeleteBehavior.Cascade)
-                .HasForeignKey<Account>(t => t.RevenueId)
+            modelBuilder.Entity<Account>()
+                .HasOne<Revenue>(a => a.Revenue)
+                .WithOne(r => r.Account)
+                .HasForeignKey<Revenue>(r => r.AccountId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
